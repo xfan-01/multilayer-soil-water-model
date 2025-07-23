@@ -3,8 +3,8 @@
 
 ## Language / 语言选择
 
-- **[English Version](./README_EN.md)** - Complete documentation in English
-- **[中文版本](./README_CN.md)** - 完整的中文文档
+- **[English Version](./docs/README_EN.md)** - Complete documentation in English
+- **[中文版本](./docs/README_CN.md)** - 完整的中文文档
 
 ---
 
@@ -26,7 +26,19 @@ This project implements a physics-based multi-layer soil water dynamics simulati
 
 ## Quick Start / 快速开始
 
+```bash
+# Navigate to core directory / 进入核心代码目录
+cd core
+
+# Run the model / 运行模型
+python model_driver.py
+```
+
+Or use Python import / 或使用Python导入:
+
 ```python
+import sys
+sys.path.append('./core')
 from model_driver import main
 
 # Run complete model workflow / 运行完整模型工作流
@@ -40,7 +52,7 @@ For detailed documentation, please select your preferred language above.
 
 ## Configuration Examples / 配置示例
 
-### Model Configuration / 模型配置 (`model_config.txt`)
+### Model Configuration / 模型配置 (`config/model_config.txt`)
 
 ```ini
 # Basic Model Configuration / 基本模型配置
@@ -59,7 +71,7 @@ layer_colors = blue,green,red
 font_family = Arial
 ```
 
-### Variable Mapping / 变量映射 (`variable_mapping.txt`)
+### Variable Mapping / 变量映射 (`config/variable_mapping.txt`)
 
 ```ini
 # Data Files / 数据文件
@@ -80,11 +92,13 @@ theta_50mm = theta50  # 3-layer mode enabled / 3层模式已启用
 ### Custom Configuration Example / 自定义配置示例
 
 ```python
+import sys
+sys.path.append('./core')
 from config_manager import ConfigManager
 from model_driver import train_and_evaluate_model
 
 # Load custom configuration / 加载自定义配置
-config = ConfigManager('custom_config.txt', 'custom_mapping.txt')
+config = ConfigManager('../config/custom_config.txt', '../config/custom_mapping.txt')
 
 # Run model with custom settings / 使用自定义设置运行模型
 results = train_and_evaluate_model(config)
@@ -95,18 +109,27 @@ results = train_and_evaluate_model(config)
 ## File Structure / 文件结构
 
 ```
-soil model/
-├── soil_model.py          # Core model calculation engine / 核心模型计算引擎
-├── model_driver.py        # Model driver and evaluation functions / 模型驱动和评估函数
-├── config_manager.py      # Configuration management module / 配置管理模块
-├── visualization.py       # Visualization and plotting functions / 可视化和绘图函数
-├── model_config.txt       # Model parameter configuration / 模型参数配置
-├── variable_mapping.txt   # Variable mapping configuration / 变量映射配置
-├── 2000.xlsx             # Training data (year 2000) / 训练数据（2000年）
-├── 2001.xlsx             # Test data (year 2001) / 测试数据（2001年）
-├── README.md             # This file / 本文件
-├── README_EN.md          # English documentation / 英文文档
-└── README_CN.md          # Chinese documentation / 中文文档
+multilayer-soil-water-model/
+├── core/                   # Core code files / 核心代码文件
+│   ├── model_driver.py     # Main program driver / 主程序驱动器
+│   ├── soil_model.py       # Core model algorithms / 土壤模型核心算法
+│   ├── config_manager.py   # Configuration management / 配置管理模块
+│   └── visualization.py    # Visualization module / 可视化模块
+├── config/                 # Configuration files / 配置文件
+│   ├── model_config.txt    # Model parameters / 模型参数配置
+│   └── variable_mapping.txt # Variable mapping / 变量映射配置
+├── data/                   # Data files / 数据文件
+│   ├── 2000.xlsx          # Training data (2000) / 训练数据（2000年）
+│   └── 2001.xlsx          # Test data (2001) / 测试数据（2001年）
+├── docs/                   # Documentation / 文档文件
+│   ├── README_CN.md       # Chinese documentation / 中文详细文档
+│   └── README_EN.md       # English documentation / 英文详细文档
+├── results/                # Output results / 结果文件
+│   ├── model_performance_metrics.json  # Performance metrics / 性能指标数据
+│   ├── train_comparison_3layer.png     # Training comparison / 训练对比图
+│   ├── test_comparison_3layer.png      # Test comparison / 测试对比图
+│   └── scatter_plots_3layer.png        # Scatter plots / 散点图分析
+└── README.md              # Main documentation / 主文档
 ```
 
 ---
@@ -127,12 +150,23 @@ Latest simulation results for 3-layer soil moisture model:
 - **20cm layer**: NSE=-0.79, PBIAS=-3.1% (Moderate Confidence / 中等可信度)
 - **50cm layer**: NSE=-11.6, PBIAS=66.2% (Low Confidence / 低可信度)
 
+### Model Visualization Results / 模型可视化结果
+
+#### Training Data Comparison / 训练数据对比
+![Training Comparison](./results/train_comparison_3layer.png)
+
+#### Test Data Comparison / 测试数据对比  
+![Test Comparison](./results/test_comparison_3layer.png)
+
+#### Scatter Plot Analysis / 散点图分析
+![Scatter Plots](./results/scatter_plots_3layer.png)
+
 ### Generated Outputs / 生成的输出文件
 
-- `model_performance_metrics.json` - Detailed performance metrics / 详细性能指标
-- `train_comparison_3layer.png` - Training data comparison plots / 训练数据对比图
-- `test_comparison_3layer.png` - Test data comparison plots / 测试数据对比图  
-- `scatter_plots_3layer.png` - Scatter plot analysis / 散点图分析
+- `results/model_performance_metrics.json` - Detailed performance metrics / 详细性能指标
+- `results/train_comparison_3layer.png` - Training data comparison plots / 训练数据对比图
+- `results/test_comparison_3layer.png` - Test data comparison plots / 测试数据对比图  
+- `results/scatter_plots_3layer.png` - Scatter plot analysis / 散点图分析
 
 ---
 

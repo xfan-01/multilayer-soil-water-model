@@ -1,0 +1,52 @@
+# Model Configuration File
+# Format: parameter_name = value
+# Supports comment lines (starting with #)
+
+# Basic Model Configuration (3-layer setup)
+n_layers = 3
+
+# Layer Index Configuration (flexible handling by driver)
+# Available layer depth list, defined in order by index (1,2,3...)
+layer_depths = 10,20,50,100
+# Actually used layer indices (1-based indexing) - use first 3 layers
+active_layer_indices = 1,2,3
+# Corresponding variable name pattern
+layer_variable_pattern = theta{depth}_mm
+
+max_iterations = 100
+convergence_tolerance = 1e-6
+
+# Default Physical Parameters
+default_alpha = 0.1
+default_beta = 0.05
+default_max_theta_base = 45
+default_theta_fi_base = 12
+max_theta_increment = 5
+theta_fi_increment = 2
+
+# Optimization Parameter Boundaries
+alpha_min = 1e-6
+alpha_max = 1.0
+beta_min = 1e-6
+beta_max = 1.0
+
+# Data Processing Parameters
+precip_default = 0.0
+evap_default = 0.0
+interpolate_nan = True
+
+# Visualization Parameters
+figure_dpi = 300
+figure_width = 12
+layer_colors = blue,green,red,orange,purple
+font_family = Arial
+
+# Chart Label Configuration
+soil_moisture_unit = mm
+depth_unit = cm
+train_dataset_name = Training Set (2000)
+test_dataset_name = Test Set (2001)
+observed_label = Observed
+simulated_label = Simulated
+date_label = Date
+soil_moisture_label = Soil Moisture
